@@ -1,3 +1,4 @@
+package com.workshop.HotelReservation;
 
 public class HotelReservationSystem {
 
