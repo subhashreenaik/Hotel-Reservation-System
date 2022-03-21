@@ -1,5 +1,9 @@
 package com.workshop.HotelReservation;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Hotel {
 	
 	private String hotelName;
@@ -7,13 +11,19 @@ public class Hotel {
 	private double ratesWeekdaysRegularType,ratesWeekdaysRewardsType;
 	private double ratesWeekendRegularType,ratesWeekendRewardType;
 	private int rating;
+	private double totalRate;
+	
+	private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+	
+	public Hotel() {
+		super();
+	}
 	
 	/*
 	 * Declaring parameterised constructor of class
 	 */
-	public Hotel(String hotelName,String customerType,double ratesWeekdaysRegularType,double ratesWeekdaysRewardsType,double ratesWeekendRegularType,double ratesWeekendRewardType,int rating) {
+	public Hotel(String hotelName,double ratesWeekdaysRegularType,double ratesWeekdaysRewardsType,double ratesWeekendRegularType,double ratesWeekendRewardType,int rating) {
 		this.hotelName=hotelName;
-		this.customerType=customerType;
 		this.ratesWeekdaysRegularType=ratesWeekdaysRegularType;
 		this.ratesWeekdaysRewardsType=ratesWeekdaysRewardsType;
 		this.ratesWeekendRegularType=ratesWeekendRegularType;
@@ -24,6 +34,13 @@ public class Hotel {
 	/*
 	 * these are the getter and setter method to access the private variable
 	 */
+	
+	public void setTotalRate(double totalRate) {
+		this.totalRate = totalRate;
+	}
+	public double getTotalRate() {
+		return totalRate;
+	}
 	public double getRatesWeekdaysRegularType() {
 		return ratesWeekdaysRegularType;
 	}
@@ -89,6 +106,38 @@ public class Hotel {
 				+ ", ratesWeekendRegularType=" + ratesWeekendRegularType + ", ratesWeekendRewardType="
 				+ ratesWeekendRewardType + ", rating=" + rating + "]";
 	}
+	public  double getTotalValue(String  customertype,String date1,String date2) {
+		double totalRate=0;
+		final LocalDate startDate = LocalDate.parse(date1, DATE_FORMAT);
+		final LocalDate endDate = LocalDate.parse(date2, DATE_FORMAT);
+//		
+		if(customertype.equals("Regular")) {
+			for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1))
+			{
+				if(date.getDayOfWeek().equals(DayOfWeek.SATURDAY)|| date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+					totalRate += ratesWeekendRegularType;
+		
+	               }
+				else {
+					totalRate += ratesWeekdaysRegularType;
+				}
+		     }
+			return totalRate;
+		     }
+		else {
+			for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1))
+			{
+				if(date.getDayOfWeek().equals(DayOfWeek.SATURDAY)|| date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+					totalRate +=ratesWeekendRewardType;
+		
+	               }
+				else {
+					totalRate +=ratesWeekdaysRewardsType;
+				}
+		     }
+			return totalRate;
+		     }
+		}
 	
 	
 }
