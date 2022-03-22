@@ -21,7 +21,7 @@ public class MainResult {
 	private static double ratesWeekdaysRegularType, ratesWeekdaysRewardsType;
 	private static double ratesWeekendRegularType, ratesWeekendRewardType;
 	private static int rating;
-	private String customerType;
+	private static String customerType,startDate,endDate;
 	
 	/*
 	 * creating ArrayList to store all hotel information
@@ -81,31 +81,43 @@ public class MainResult {
 	return priceOfcheapestHotel.stream().filter(results -> results.getTotalRate() == priceOfcheapestHotel.get(0).getTotalRate()).collect(Collectors.toList());
 
 	}
-	
+	public void enterDateInform() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter Customer type :Regular or rewards ");
+		customerType = sc.nextLine();	
+		System.out.println("Enter start date in format :10-Sep-2020");
+		String startDate = sc.nextLine();
+		System.out.println("Enter end date in format :10-Sep-2020");
+		String endDate = sc.nextLine();
+	}
 
 	
 
 	public static void main(String[] args) {
 		System.out.println("Enter information about Hotel and their fares ");
 		MainResult result = new MainResult();
-		
-		
 		/*
 		 * Calling the method to give Hotel information
 		 */
 		result.addInfor_HotelReservationSystem(); 
 		hotelinfo.stream().forEach(s -> System.out.println(s));
+		
+		/*
+		 * Calling the method to give Date Range information
+		 */
+		result.enterDateInform();
+		
 		/*
 		 * Calling the method to find cheapest Hotel of given date
 		 */
-		 System.out.println(findCheapestHotel("Regular","10-Sep-2020","20-Sep-2020").get(0).getHotelName()+" is the cheapest hotel on given date with total price"+
-		 findCheapestHotel("Regular","10-Sep-2020","20-Sep-2020").get(0).getTotalRate());
+		 System.out.println(findCheapestHotel(customerType,startDate, endDate).get(0).getHotelName()+" is the cheapest hotel on given date with total price"+
+		 findCheapestHotel(customerType,startDate, endDate).get(0).getTotalRate());
 		
 		/*
 		 * Calling the method to find rate of cheapest Hotel of given date 
 		 */
-		 System.out.println(findCheapestHotel("Regular","10-Sep-2020","20-Sep-2020").get(0).getHotelName()+ "of rating : "+ findCheapestHotel("Regular","10-Sep-2020","20-Sep-2020").get(0).getRating()+" is the cheapest hotel on given date with total price "+
-		 findCheapestHotel("Regular","10-Sep-2020","20-Sep-2020").get(0).getTotalRate());
+		 System.out.println(findCheapestHotel(customerType,startDate, endDate).get(0).getHotelName()+ "of rating : "+ findCheapestHotel(customerType,startDate, endDate).get(0).getRating()+" is the cheapest hotel on given date with total price "+
+		 findCheapestHotel(customerType,startDate, endDate).get(0).getTotalRate());
 
 	}
 
