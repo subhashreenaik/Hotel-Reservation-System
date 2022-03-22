@@ -31,7 +31,7 @@ public class MainResult {
 
 	/*
 	 * This method is used to enter all information about hotel like name,customer
-	 * type,rates,rating
+	 * type,rates,rating for different hotel
 	 */
 	public void enterInform() {
 		Scanner sc = new Scanner(System.in);
@@ -66,7 +66,7 @@ public class MainResult {
 	/*
 	 * This method is used to find the cheapest Hotel of given date
 	 */
-	public  List<Hotel> findCheapestHotel(String customertype,String startDate,String endDate) {
+	public  static List<Hotel> findCheapestHotel(String customertype,String startDate,String endDate) {
 	 List<Hotel> priceOfcheapestHotel=hotelinfo.stream().map(s->{
 		 Hotel result=new Hotel();
 		 result.setHotelName(s.getHotelName());
@@ -98,7 +98,8 @@ public class MainResult {
 		/*
 		 * Calling the method to find cheapest Hotel of given date
 		 */
-		System.out.println(result.findCheapestHotel("Regular","10-Sep-2020","20-Sep-2020").get(0).getHotelName()+" is the cheapest hotel on given date");
+		System.out.println(findCheapestHotel("Regular","10-Sep-2020","20-Sep-2020").get(0).getHotelName()+" is the cheapest hotel on given date "+
+		 findCheapestHotel("Regular","10-Sep-2020","20-Sep-2020").get(0).getTotalRate());
 
 	}
 
