@@ -63,9 +63,11 @@ public class MainResult {
 		}
 		
 	}
-	/*
+	/**
 	 * This method is used to find the cheapest Hotel of given date
-	 */
+	 * @param customer type,start date,end date
+	 * @return List
+	 **/
 	public  static List<Hotel> findCheapestHotel(String customertype,String startDate,String endDate) {
 	 List<Hotel> priceOfcheapestHotel=hotelinfo.stream().map(s->{
 		 Hotel result=new Hotel();
@@ -81,15 +83,28 @@ public class MainResult {
 	return priceOfcheapestHotel.stream().filter(results -> results.getTotalRate() == priceOfcheapestHotel.get(0).getTotalRate()).collect(Collectors.toList());
 
 	}
-	public void enterDateInform() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter Customer type :Regular or rewards ");
-		customerType = sc.nextLine();	
-		System.out.println("Enter start date in format :10-Sep-2020");
-		String startDate = sc.nextLine();
-		System.out.println("Enter end date in format :10-Sep-2020");
-		String endDate = sc.nextLine();
+	/**
+	 * This method is used to find the Best Rated Hotel of given date
+	 * @param customer type,start date,end date
+	 * @return List
+	 **/
+	 
+	public  static List<Hotel> findBestRatedHotel(String customertype,String startDate,String endDate) {
+	 List<Hotel> priceOfcheapestHotel=hotelinfo.stream().map(s->{
+		 Hotel result=new Hotel();
+		 result.setHotelName(s.getHotelName());
+		 result.setRatesWeekdaysRegularType(s.getRatesWeekdaysRegularType());
+		 result.setRatesWeekdaysRewardsType(s.getRatesWeekdaysRewardsType());
+		 result.setRatesWeekendRegularType(s.getRatesWeekendRegularType());
+		 result.setRatesWeekendRewardType(s.getRatesWeekendRewardType());
+		 result.setTotalRate(s.getTotalValue(customertype,startDate,endDate));
+		 result.setRating(s.getRating());
+		 return result;
+	 }).sorted(Comparator.comparing(Hotel::getRating).reversed()).collect(Collectors.toList());
+	return priceOfcheapestHotel.stream().filter(results -> results.getRating() == priceOfcheapestHotel.get(0).getRating()).collect(Collectors.toList());
+
 	}
+	
 
 	
 
@@ -105,7 +120,13 @@ public class MainResult {
 		/*
 		 * Calling the method to give Date Range information
 		 */
-		result.enterDateInform();
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter Customer type :Regular or rewards ");
+		customerType = sc.nextLine();	
+		System.out.println("Enter start date in format :10-Sep-2020");
+		String startDate = sc.nextLine();
+		System.out.println("Enter end date in format :10-Sep-2020");
+		String endDate = sc.nextLine();
 		
 		/*
 		 * Calling the method to find cheapest Hotel of given date
@@ -118,6 +139,12 @@ public class MainResult {
 		 */
 		 System.out.println(findCheapestHotel(customerType,startDate, endDate).get(0).getHotelName()+ "of rating : "+ findCheapestHotel(customerType,startDate, endDate).get(0).getRating()+" is the cheapest hotel on given date with total price "+
 		 findCheapestHotel(customerType,startDate, endDate).get(0).getTotalRate());
+		 
+		 /*
+		 * Calling the method to find rate of best rated Hotel of given date 
+		 */
+		 System.out.println(findBestRatedHotel(customerType,startDate, endDate).get(0).getHotelName()+" is the best rated hotel and Total rate is "+
+		 findBestRatedHotel(customerType,startDate, endDate).get(0).getTotalRate());
 
 	}
 
