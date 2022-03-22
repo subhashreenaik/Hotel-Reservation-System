@@ -98,7 +98,13 @@ public class MainResult {
 		/*
 		 * Calling the method to find cheapest Hotel of given date
 		 */
-		System.out.println(findCheapestHotel("Regular","10-Sep-2020","20-Sep-2020").get(0).getHotelName()+" is the cheapest hotel on given date "+
+		 System.out.println(findCheapestHotel("Regular","10-Sep-2020","20-Sep-2020").get(0).getHotelName()+" is the cheapest hotel on given date with total price"+
+		 findCheapestHotel("Regular","10-Sep-2020","20-Sep-2020").get(0).getTotalRate());
+		
+		/*
+		 * Calling the method to find rate of cheapest Hotel of given date 
+		 */
+		 System.out.println(findCheapestHotel("Regular","10-Sep-2020","20-Sep-2020").get(0).getHotelName()+ "of rating : "+ findCheapestHotel("Regular","10-Sep-2020","20-Sep-2020").get(0).getRating()+" is the cheapest hotel on given date with total price "+
 		 findCheapestHotel("Regular","10-Sep-2020","20-Sep-2020").get(0).getTotalRate());
 
 	}
